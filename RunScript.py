@@ -6,7 +6,8 @@ import ROOT
 import importlib
 import Analysis.Job as Job
 import Analysis.Disclaimer as DC
-from multiprocessing import Pool 
+from multiprocessing import Pool
+#import Analysis.ZZDibosonAnalysis as importedAnalysisModule
 
 def buildProcessingDict(configuration, samples):
     if samples == "": 
@@ -23,9 +24,13 @@ def buildProcessingDict(configuration, samples):
 def checkAnalysis(configuration, analysisOption):
     analysisName = analysisOption if analysisOption != "" else configuration.Job["Analysis"]
     try:
-        importedAnalysisModule = importlib.import_module("Analysis." + analysisName)
+        #sys.path.append('./Analysis/')
+        #print(analysisName)
+        #importedAnalysisModule = importlib.import_module("Analysis." + analysisName)
+        import Analysis.ZZDibosonAnalysis  as importedAnalysisModule
+        #importedAnalysisModule = importlib.import_module(analysisName)
         configuration.Job["Analysis"] = analysisName
-    except ImportError:
+    except ImportError as e:
         print "Error when trying to read the analysis code for %s. Please check name validity" % analysisName
         sys.exit(1)
 
@@ -54,14 +59,15 @@ def main( argv ):
     parser = argparse.ArgumentParser( description = 'Analysis Tool using XMLs' )
     parser.add_argument('-n', '--nWorkers',   default=4,                                 type=int,   help='number of workers' )  
     parser.add_argument('-p', '--parallel',   default=False,   action='store_const',     const=True, help='enables running in parallel')
-    parser.add_argument('-c', '--configfile', default="Configurations/HZZConfiguration.py", type=str,   help='files to be analysed')
+    parser.add_argument('-c', '--configfile', default="Configurations/ZZDibosonConfiguration.py", type=str,   help='files to be analysed')
     parser.add_argument('-a', '--analysis',   default=""                               , type=str,   help='overrides the analysis specified in configuration file')
     parser.add_argument('-s', '--samples',    default=""                               , type=str,   help='string with comma separated list of samples to analyse')
     parser.add_argument('-o', '--output',     default=""                               , type=str,   help='name of the output directory')
     args = parser.parse_args()
     
     configModuleName = args.configfile.replace("/", ".").replace(".py","")
-    configuration = importlib.import_module(configModuleName)
+    sys.path.append('./Configurations/') # Python2 importing from other dir
+    configuration = importlib.import_module(configModuleName.split('.')[1])
   
     configuration.Job["OutputDirectory"] = args.output + "/" if args.output != "" else configuration.Job["OutputDirectory"]
     if not os.path.exists(configuration.Job["OutputDirectory"]):

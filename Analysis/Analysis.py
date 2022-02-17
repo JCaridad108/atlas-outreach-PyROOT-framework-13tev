@@ -1,7 +1,8 @@
 import ROOT
 import time
 
-import TupleReader as reader
+#import TupleReader as reader
+import TupleReaderZZDiboson as reader
 import HistManager
 import EventCounter
 

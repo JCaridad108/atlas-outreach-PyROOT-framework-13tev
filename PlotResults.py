@@ -9,6 +9,8 @@ import Plotting.Depiction as Depiction
 import Plotting.Database  as Database
 import importlib
 from collections import OrderedDict
+sys.path.append('./Configurations/')
+import PlotConf_ZZDibosonAnalysis as conf
  
 def collectPaintables(definition):
     paintables = {}
@@ -60,12 +62,13 @@ def writeXaxisTitle(Paintables):
     xAxisTitle = Paintables[Paintables.keys()[0]].getHistogram().GetXaxis().GetTitle()
     [p.getHistogram().SetXTitle("") for p in Paintables.values()]
     drawItem(0.95, 0.05, xAxisTitle, 42, 0.03, 33)
-    #drawItem(0.2, 0.88-0.105, "MC integral " + str(Paintables["Stack"].getHistogram().Integral()), 42, 0.02)
-    #drawItem(0.2, 0.88-0.13, "Data integral " + str(Paintables["data"].getHistogram().Integral()), 42, 0.02)
+    drawItem(0.2, 0.88-0.105, "MC integral " + str(Paintables["Stack"].getHistogram().Integral()), 42, 0.02)
+    drawItem(0.2, 0.88-0.13, "Data integral " + str(Paintables["data"].getHistogram().Integral()), 42, 0.02)
+    print("Counted/Lumi: ", Paintables["data"].getHistogram().Integral()/10064)
     
 def ATLASLabel( x, y):
     drawItem(x, y,      "ATLAS Open Data", 42,  0.03)
-    drawItem(x, y-0.025,"for education", 52,  0.02)
+    #drawItem(x, y-0.025,"for education", 52,  0.02)
     drawItem(x, y-0.065, "#sqrt{#it{s}} = 13 TeV, #int L dt = 10 fb^{-1}", 42, 0.02)
 
 def drawLegend(paintables, paintingOrder):
@@ -79,7 +82,7 @@ def drawLegend(paintables, paintingOrder):
     return legend
 
 def DrawPlot(configuration, histlocation):
-    print "Drawing plot: " + histlocation 
+    print "Drawing plot: " + histlocation
     canvas = ROOT.TCanvas( histlocation, "title", 900, 900 )
     
     Paintables = collectPaintables(configuration["Paintables"])
@@ -107,8 +110,13 @@ def main( argv ):
     parser.add_argument('configfile', type=str, help='configuration file to be used')
     args = parser.parse_args()
     
-    configModuleName = args.configfile.replace("/", ".").strip(".py")
-    configuration = importlib.import_module(configModuleName).config
+    #configModuleName = args.configfile.replace("/", ".").strip(".py")
+    #sys.path.append('./Configurations/')
+    #configuration = importlib.import_module(configModuleName.split('.')[1]).config
+    #import Configurations.ZZDibosonConfiguration as conf
+    configuration = conf.config
+	#import Configurations.ZZDibosonConfiguration as conf
+    #configuration = conf.config
     
     for histogram in configuration["Histograms"]:
         Database.UpdateDataBase(configuration, histogram)
