@@ -18,6 +18,7 @@ class ZZDibosonAnalysis(Analysis.Analysis):
 
   
   def initialize(self):
+      self.event_count       =  self.addHistogram("event_count",         ROOT.TH1D("event_count",     "Candidate Event Count; ;Events", 5, 0,5))
       self.invMassZ1         =  self.addHistogram("invMassZ1",           ROOT.TH1D("invMassZ1",     "Invariant Mass of the Z boson 1;M_{Z1} [GeV]; Events/bin", 25, 66,116))
       self.invMassZ2         =  self.addHistogram("invMassZ2",           ROOT.TH1D("invMassZ2",     "Invariant Mass of the Z boson 2;M_{Z2} [GeV]; Events/bin", 25, 66,116))
 
@@ -60,7 +61,10 @@ class ZZDibosonAnalysis(Analysis.Analysis):
       candidate = self.ZZCandidate(goodLeptons)
       if candidate is None: return False;
       self.countEvent("Valid ZZ candidate", weight)
- 
+		
+
+      # ZZ event count histogram
+      self.event_count.Fill(1)
       # ZZ system histograms
       self.invMassZ1.Fill((candidate[0].tlv() + candidate[1].tlv()).M(), weight)
       self.invMassZ2.Fill((candidate[2].tlv() + candidate[3].tlv()).M(), weight)

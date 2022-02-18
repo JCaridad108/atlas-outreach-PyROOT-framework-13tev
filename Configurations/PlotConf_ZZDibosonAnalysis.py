@@ -24,7 +24,7 @@ config = {
 
 "Paintables": {
     "Stack": {
-        "Order": ["ZZ", "Other"],#,"HZZ"],
+        "Order": ["ZZ", "Background"],#, "Other"],#,"HZZ"],
         "Processes" : {  
             #"HZZ" : {
             #    "Color" : "#ff0000",
@@ -37,12 +37,19 @@ config = {
                                    #,"ZqqZll"
                                    #,"llvv"
                                   ]},
-            "Other": {       
-                "Color"         : "#6b59d3",
-                "Contributions" : ["Zee", "Zmumu"
-                                   #, "WqqZll", "lllv"
-                                   #, "ttbar_lep"]},
-								   ]},
+			"Background" : {
+				"Color"			: "#6b59d3",
+				"Contributions"	: ["ZqqZll","WqqZll","WpqqWmlv","WplvWmqq","WlvZqq",
+								  "lllv","llvv","lvvv", "single_top_tchan", "single_antitop_tchan",
+								  "single_top_wtchan","single_antitop_wtchan","single_top_schan",
+								  "single_antitop_schan","ttbar_lep"
+								  ]},
+            #"Other": {       
+            #    "Color"         : "#6b59d3",
+            #    "Contributions" : ["Zee", "Zmumu"
+            #                       #, "WqqZll", "lllv"
+            #                       #, "ttbar_lep"]},
+			#					   ]},
 
         }
     },
