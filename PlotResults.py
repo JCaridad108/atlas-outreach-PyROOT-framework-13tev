@@ -62,14 +62,14 @@ def writeXaxisTitle(Paintables):
     xAxisTitle = Paintables[Paintables.keys()[0]].getHistogram().GetXaxis().GetTitle()
     [p.getHistogram().SetXTitle("") for p in Paintables.values()]
     drawItem(0.95, 0.05, xAxisTitle, 42, 0.03, 33)
-    drawItem(0.2, 0.88-0.105, "MC integral " + str(Paintables["Stack"].getHistogram().Integral()), 42, 0.02)
-    drawItem(0.2, 0.88-0.13, "Data integral " + str(Paintables["data"].getHistogram().Integral()), 42, 0.02)
+    #drawItem(0.2, 0.88-0.105, "MC integral " + str(Paintables["Stack"].getHistogram().Integral()), 42, 0.02)
+    #drawItem(0.2, 0.88-0.13, "Data integral " + str(Paintables["data"].getHistogram().Integral()), 42, 0.02)
     print("Counted/Lumi: ", Paintables["data"].getHistogram().Integral()/10064)
     
 def ATLASLabel( x, y):
     drawItem(x, y,      "ATLAS Open Data", 42,  0.03)
     #drawItem(x, y-0.025,"for education", 52,  0.02)
-    drawItem(x, y-0.065, "#sqrt{#it{s}} = 13 TeV, #int L dt = 10 fb^{-1}", 42, 0.02)
+    drawItem(x, y-0.065, "#sqrt{#it{s}} = 13 TeV, #int L dt = 10 fb^{-1}", 42, 0.025)
 
 def drawLegend(paintables, paintingOrder):
     y1 = 0.9

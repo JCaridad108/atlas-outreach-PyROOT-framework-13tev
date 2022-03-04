@@ -8,10 +8,10 @@ config = {
 
 "Histograms" : {
     #"mass_four_lep_ext"       : {},
-    "invMassZ1"       : {"rebin" : 2},
-    "invMassZ2"       : {"rebin" : 2},
+    "invMassZ1"       : {"rebin" : 1},
+    "invMassZ2"       : {"rebin" : 1},
     "lep_n"           : {"y_margin" : 0.4},
-    "lep_pt"          : {"y_margin" : 0.4, "rebin" : 4},
+    "lep_pt"          : {"y_margin" : 0.4, "rebin" : 2},
     "lep_eta"         : {"y_margin" : 0.5, "rebin" : 3},
     "lep_E"           : {"rebin" : 3},
     "lep_phi"         : {"y_margin" : 0.6, "rebin" : 4,},
