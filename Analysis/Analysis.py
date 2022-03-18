@@ -2,7 +2,8 @@ import ROOT
 import time
 
 #import TupleReader as reader
-import TupleReaderZZDiboson as reader
+#import TupleReaderZZDiboson as reader
+import TupleReaderHWW as reader
 import HistManager
 import EventCounter
 

@@ -18,6 +18,7 @@ scaleDB     = infofile.infos
 def getScaleFactor(scalingkey):
     """Scaling is done by calculating the luminosity of the sample via xsec/(sumw*red_eff) and
     multiplying the target luminosity"""
+    print('scaling key: ', scalingkey)
     entry = scaleDB[scalingkey]
     return config["Luminosity"]*entry["xsec"]/(entry["sumw"]*entry["red_eff"])
     

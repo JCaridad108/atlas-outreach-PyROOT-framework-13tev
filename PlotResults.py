@@ -10,7 +10,8 @@ import Plotting.Database  as Database
 import importlib
 from collections import OrderedDict
 sys.path.append('./Configurations/')
-import PlotConf_ZZDibosonAnalysis as conf
+#import PlotConf_ZZDibosonAnalysis as conf
+import PlotConf_HWWAnalysis as conf
  
 def collectPaintables(definition):
     paintables = {}
@@ -62,8 +63,8 @@ def writeXaxisTitle(Paintables):
     xAxisTitle = Paintables[Paintables.keys()[0]].getHistogram().GetXaxis().GetTitle()
     [p.getHistogram().SetXTitle("") for p in Paintables.values()]
     drawItem(0.95, 0.05, xAxisTitle, 42, 0.03, 33)
-    #drawItem(0.2, 0.88-0.105, "MC integral " + str(Paintables["Stack"].getHistogram().Integral()), 42, 0.02)
-    #drawItem(0.2, 0.88-0.13, "Data integral " + str(Paintables["data"].getHistogram().Integral()), 42, 0.02)
+    drawItem(0.2, 0.88-0.105, "MC integral " + str(Paintables["Stack"].getHistogram().Integral()), 42, 0.02)
+    drawItem(0.2, 0.88-0.13, "Data integral " + str(Paintables["data"].getHistogram().Integral()), 42, 0.02)
     print("Counted/Lumi: ", Paintables["data"].getHistogram().Integral()/10064)
     
 def ATLASLabel( x, y):
@@ -82,21 +83,34 @@ def drawLegend(paintables, paintingOrder):
     return legend
 
 def DrawPlot(configuration, histlocation):
+   if "mass" in histlocation:
     print "Drawing plot: " + histlocation
     canvas = ROOT.TCanvas( histlocation, "title", 900, 900 )
     
     Paintables = collectPaintables(configuration["Paintables"])
     Depictions = collectDepictions(configuration["Depictions"])
     initializeDepictions(Depictions)
-
+	#----------
+     
+    f = ROOT.TFile("OutputHWW/rootFiles/mass_WW.root", 'RECREATE')
+    stack_histo = Paintables["Stack"].getHistogram()
+    data_histo = Paintables["data"].getHistogram()
+    #for s in stack_histo: s.Write()
+    stack_histo.Write()
+    data_histo.Write()
+    
+	#----------
     ATLASLabel(0.2,0.88)
     writeXaxisTitle(Paintables)
     # legend has to be attached to canvas otherwise the garbage collector deletes it
     canvas.legend = drawLegend(Paintables, Depictions[0].PaintingOrder)
     [d.drawDepiction(Paintables) for d in Depictions]
+	
+    canvas.SaveAs("OutputHWW/" + histlocation+ ".pdf")  
+    # NOTE: LINE BELOW OUPUTS HISTOGRAMS AS .root
+    #Tfil = ROOT.TFile("Output/rootFiles/"+histlocation+".root")
+    #[d.Write() for d in Depictions]
 
-    canvas.SaveAs("Output/" + histlocation+ ".pdf")  
- 
 #======================================================================
 def main( argv ):
     """

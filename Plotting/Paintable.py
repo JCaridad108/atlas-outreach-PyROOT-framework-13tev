@@ -85,7 +85,8 @@ class StackPaintable(Paintable):
     
     def getHistogram(self):
         stack = self.stack.GetStack()
-        return stack[len(stack)-1]
+        #return stack[len(stack)-1] # TODO: UNCOMMENT THIS AND REMOVE BELOW LINE
+        return stack
     
     def draw(self, option = ""):
         self.stack.Draw("hist" + option)

@@ -4,10 +4,10 @@ config = {
 #"Luminosity": 2884, #period C
 #"Luminosity": 4684, #period D
 "Luminosity": 10064, #period A-D
-"InputDirectory": "resultsHWW",
+"InputDirectory": "resultsZZDiboson",
 
 "Histograms" : {
-    "mass_four_lep_ext"       : {},
+    #"mass_four_lep_ext"       : {},
     "invMassZ1"       : {"rebin" : 1},
     "invMassZ2"       : {"rebin" : 1},
     "lep_n"           : {"y_margin" : 0.4},

@@ -27,7 +27,8 @@ def checkAnalysis(configuration, analysisOption):
         #sys.path.append('./Analysis/')
         #print(analysisName)
         #importedAnalysisModule = importlib.import_module("Analysis." + analysisName)
-        import Analysis.ZZDibosonAnalysis  as importedAnalysisModule
+        ##import Analysis.ZZDibosonAnalysis  as importedAnalysisModule
+        import Analysis.HWWAnalysis as importedAnalysisModule
         #importedAnalysisModule = importlib.import_module(analysisName)
         configuration.Job["Analysis"] = analysisName
     except ImportError as e:
@@ -59,7 +60,8 @@ def main( argv ):
     parser = argparse.ArgumentParser( description = 'Analysis Tool using XMLs' )
     parser.add_argument('-n', '--nWorkers',   default=4,                                 type=int,   help='number of workers' )  
     parser.add_argument('-p', '--parallel',   default=False,   action='store_const',     const=True, help='enables running in parallel')
-    parser.add_argument('-c', '--configfile', default="Configurations/ZZDibosonConfiguration.py", type=str,   help='files to be analysed')
+	#parser.add_argument('-c', '--configfile', default="Configurations/ZZDibosonConfiguration.py", type=str,   help='files to be analysed')
+    parser.add_argument('-c', '--configfile', default="Configurations/HWWConfiguration.py", type=str,   help='files to be analysed')
     parser.add_argument('-a', '--analysis',   default=""                               , type=str,   help='overrides the analysis specified in configuration file')
     parser.add_argument('-s', '--samples',    default=""                               , type=str,   help='string with comma separated list of samples to analyse')
     parser.add_argument('-o', '--output',     default=""                               , type=str,   help='name of the output directory')

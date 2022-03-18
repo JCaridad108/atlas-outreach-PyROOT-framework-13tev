@@ -1,0 +1,23 @@
+During RunScript.py, the output shows "all" correpsonding to all
+	events and "Valid ZZ candidate" correpsonding to an event 
+	that is counted. The values (after scale factors) are:
+		all : 167116.28
+		Valid ZZ candidate : 55387.59
+	
+The formula used to calculate the cross section is:
+		\sigma = N/(e*L), e = (Valid ZZ candidate)/all
+	from the paper:
+		https://arxiv.org/pdf/1702.02859.pdf
+
+This formula will give about 28.78 fb, which is in agreement with the
+	fiducial cross section in the paper:
+		https://journals.aps.org/prl/pdf/10.1103/PhysRevLett.116.101801
+		and
+		https://arxiv.org/pdf/1512.05314.pdf
+	Now find "SM Prediction" that agrees and good to go.
+
+
+
+---------------------------------------------------------------------
+Wed Mar 16:
+	Remove data_A from resultsHWW so that that data fits the MC.
